@@ -11,7 +11,10 @@ import index from './routes/index';
 
 const app = express();
 const debug = Debug('movie-book:app');
+const movie = require('./routes/movie');
 app.set('views', path.join(__dirname, 'views'));
+//db connection
+const db = require('./helper/db.js')();
 // view engine setup
 app.set('view engine', 'pug');
 // uncomment after placing your favicon in /public
@@ -27,6 +30,7 @@ app.use(stylusMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('api/movie', movie);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
